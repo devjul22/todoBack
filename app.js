@@ -1,22 +1,23 @@
 const express = require('express');
-// const cors = require('cors');
-const path = require('path');
+require('dotenv').config();
+const cors = require('cors');
+// const path = require('path');
 const config = require('./config/config');
 
 const app = express();
 
-// const authRoute = require('./routes/auth.routes');
+const carRoute = require('./routes/car.routes');
 
-// config(app);
-// const corsOptions = {
-//   origin: ['http://localhost:3000'],
-//   credentials: true,
-// };
 
-// app.use(cors(corsOptions));
+config(app);
+const corsOptions = {
+  origin: ['http://localhost:3000'],
+  credentials: true,
+};
 
-// Обработка статических ресурсов
-app.use(express.static(path.join(__dirname, 'img')));
+app.use(cors(corsOptions));
+
+app.use('/api/cars', carRoute);
 
 const PORT = process.env.PORT || 4000;
 
